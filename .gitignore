@@ -1,0 +1,51 @@
+# === Archivos del sistema ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Archivos temporales ===
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# === Archivos de caché comunes ===
+.cache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# === Archivos de compilación ===
+build/
+dist/
+*.egg-info/
+
+# === Entornos virtuales ===
+env/
+venv/
+.venv/
+ENV/
+ENV.bak/
+
+# === Archivos de configuración de editores ===
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# === Git archivos de respaldo ===
+*.orig
+
+# === Archivos de sistema Linux/macOS ===
+ehthumbs.db
+Icon?
+._*
+.Spotlight-V100
+.Trashes

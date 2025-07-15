@@ -49,3 +49,6 @@ Icon?
 ._*
 .Spotlight-V100
 .Trashes
+
+# == Archivos locales de preferencias ==
+preferencias.json

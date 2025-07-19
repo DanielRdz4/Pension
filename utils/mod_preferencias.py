@@ -7,20 +7,39 @@ DIR_DATOS = DIR_BASE / "data"
 ARCHIVO_PREFERENCIAS = "preferencias.json"
 RUTA_PREFERENCIAS = DIR_DATOS / ARCHIVO_PREFERENCIAS
 
+def obt_años(mensaje):
+    """Obtiene de manera segura los años totales de inversión"""
+
+    while True:
+        try:
+            dato_usr = float(input(mensaje))
+            
+            #Asegurar que el dato sea válido        
+            if dato_usr < 0:
+                print("El valor debe ser mayor o igual a 0")
+                continue
+
+            #Asegurar que el valor sea un entero
+            if dato_usr % 1 != 0:
+                print("Los años invertidos tienen que ser un número entero")
+                continue
+
+            return int(dato_usr)
+
+        except ValueError:
+            print("Dato inválido, intente de nuevo")
 
 def obt_float(mensaje):
     while True:
         try:
             dato_usr = float(input(mensaje))
-            return dato_usr
-        except ValueError:
-            print("Dato inválido, intente de nuevo")
 
-def obt_interger(mensaje):
-    while True:
-        try:
-            dato_usr = int(input(mensaje))
-            return dato_usr
+            #Asegurar que el dato sea válido
+            if dato_usr >= 0:
+                return dato_usr
+            else:
+                print("El valor debe ser mayor o igual a 0")
+
         except ValueError:
             print("Dato inválido, intente de nuevo")
 
@@ -28,12 +47,12 @@ def crear_dicc_preferencias():
     """Crea las prefrenecias del usuario"""
 
     preferencias = {
-        "Tasa-nominal-promedio":obt_float("Tasa nominal promedio anual esperada (decimal): "),
-        "Inflacion-promedio":obt_float("Inflación anual promedio esperada (decimal): "),
-        "Mensualidad":obt_interger("Mensualidad: "),
-        "Años-invertidos":obt_interger("Años hasta el retiro: "),
-        "Inversion-inicial":obt_interger("Inversion actual: "),
-        "Tasa_de_retiro_anual":obt_float("Tasa de retiro anual sobre inversión (decimal): ")
+        "Tasa-nominal-promedio":obt_float("Tasa nominal promedio anual esperada (%): "),
+        "Inflacion-promedio":obt_float("Inflación anual promedio esperada (%): "),
+        "Mensualidad":obt_float("Mensualidad: "),
+        "Años-invertidos":obt_años("Años hasta el retiro: "),
+        "Inversion-inicial":obt_float("Inversion actual: "),
+        "Tasa_de_retiro_anual":obt_float("Tasa de retiro anual sobre inversión (%): ")
     }
 
     return preferencias

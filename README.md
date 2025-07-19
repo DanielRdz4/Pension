@@ -8,6 +8,7 @@ Este programa calcula el crecimiento de una inversión a largo plazo y la pensi�
 - **Gestión de preferencias**: Guarda y reutiliza configuraciones de inversión
 - **Cálculo con inflación**: Ajusta automáticamente las contribuciones mensuales por inflación
 - **Tasa real de retorno**: Calcula usando la fórmula `((1+tasa_nominal)/(1+inflacion))-1`
+- **ISR sobre ganancias**: Aplica un 10% de ISR sobre las ganancias de capital anuales
 - **Pensión mensual**: Calcula la pensión basada en una tasa de retiro anual
 
 ## Estructura del Proyecto
@@ -21,6 +22,7 @@ pension/
 │   └── calc_pension.py      # Cálculos financieros
 ├── data/
 │   └── preferencias.json    # Configuración guardada (ignorado por Git)
+├── .gitignore               # Archivos ignorados por Git
 └── README.md
 ```
 
@@ -54,6 +56,7 @@ Pensión mensual: $4,115.23
 - Se aplica la tasa real mensual: `tasa_real = ((1+tasa_nominal)/(1+inflacion))-1`
 - Las contribuciones mensuales se ajustan anualmente por inflación
 - Se capitaliza mensualmente durante el período especificado
+- **ISR sobre ganancias**: Se aplica un 10% de ISR sobre las ganancias de capital anuales
 
 ### Pensión Mensual
 - Se calcula como: `pension_mensual = monto_final * tasa_retiro_anual / 12`
@@ -63,8 +66,9 @@ Pensión mensual: $4,115.23
 - Las tasas se ingresan como decimales (ej: 0.10 para 10%)
 - El archivo `preferencias.json` se crea automáticamente y está excluido del control de versiones
 - Los cálculos asumen reinversión completa de ganancias durante el período de acumulación
+- **ISR aplicado**: Se descuenta un 10% sobre las ganancias de capital anuales durante la acumulación
 
 ## Requisitos
 
 - Python 3.x
-- Módulos estándar: `json`, `os`
+- Módulos estándar: `json`, `os`, `pathlib`

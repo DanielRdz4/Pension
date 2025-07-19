@@ -1,10 +1,11 @@
 import json
+from pathlib import Path
 import os
 
-ruta_datos = "data"
-ruta_relativa =os.path.join(os.curdir,ruta_datos)
-filename = "preferencias"
-ruta = os.path.join(ruta_relativa,f"{filename}.json")
+DIR_BASE= Path(__file__).parent.parent
+DIR_DATOS = DIR_BASE / "data"
+ARCHIVO_PREFERENCIAS = "preferencias.json"
+RUTA_PREFERENCIAS = DIR_DATOS / ARCHIVO_PREFERENCIAS
 
 
 def obt_float(mensaje):
@@ -27,27 +28,20 @@ def crear_dicc_preferencias():
     """Crea las prefrenecias del usuario"""
 
     preferencias = {
-        "Tasa-nominal-promedio":[],
-        "Inflacion-promedio":[],
-        "Mensualidad":[],
-        "Años-invertidos":[],
-        "Inversion-inicial":[],
-        "Tasa_de_retiro_anual":[],
+        "Tasa-nominal-promedio":obt_float("Tasa nominal promedio anual esperada (decimal): "),
+        "Inflacion-promedio":obt_float("Inflación anual promedio esperada (decimal): "),
+        "Mensualidad":obt_interger("Mensualidad: "),
+        "Años-invertidos":obt_interger("Años hasta el retiro: "),
+        "Inversion-inicial":obt_interger("Inversion actual: "),
+        "Tasa_de_retiro_anual":obt_float("Tasa de retiro anual sobre inversión (decimal): ")
     }
-
-    preferencias["Tasa-nominal-promedio"]=obt_float("Tasa nominal promedio anual esperada (decimal): ")
-    preferencias["Inflacion-promedio"]= obt_float("Inflación anual promedio esperada (decimal): ")
-    preferencias["Mensualidad"]=obt_interger("Mensualidad: ")
-    preferencias["Años-invertidos"] = obt_interger("Años hasta el retiro: ")
-    preferencias["Inversion-inicial"] = obt_interger("Inversion actual: ")
-    preferencias["Tasa_de_retiro_anual"]=obt_float("Tasa de retiro anual sobre inversión (decimal): ")
 
     return preferencias
 
 def obt_preferencias():
     """Obtiene preferencias actuales"""
 
-    with open(ruta, "r") as f:
+    with open(RUTA_PREFERENCIAS, "r") as f:
         preferencias = json.load(f)
         return preferencias
 
@@ -62,17 +56,15 @@ def decidir_estado_preferencias(preferencias_act):
         evaluar = input("\n¿Desea mantener las preferencias actuales? (Y/N): ").rstrip().upper()
         if evaluar == "Y":
             break
-        elif evaluar == "N":
-            os.remove(ruta)
+        else:
+            os.remove(RUTA_PREFERENCIAS)
             crear_preferencias()
             break
-        else:
-            continue
 
 def guardar_preferencias(preferencias):
     """Crea el archivo .json con las preferencias de usuario en la ruta establecida"""
 
-    with open(ruta,"w") as f:
+    with open(RUTA_PREFERENCIAS,"w") as f:
         json.dump(preferencias,f,indent = 4)
 
 def crear_preferencias():
@@ -81,7 +73,7 @@ def crear_preferencias():
 
 #MAIN
 def gestionar_preferencias():
-    if os.path.exists(ruta):
+    if Path.exists(RUTA_PREFERENCIAS):
 
         #Leer archivo de preferencias actual
         preferencias_act = obt_preferencias()

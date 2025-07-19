@@ -83,6 +83,9 @@ def decidir_estado_preferencias(preferencias_act):
 def guardar_preferencias(preferencias):
     """Crea el archivo .json con las preferencias de usuario en la ruta establecida"""
 
+    # Asegurar que el directorio data existe
+    DIR_DATOS.mkdir(parents=True, exist_ok=True)
+
     with open(RUTA_PREFERENCIAS,"w") as f:
         json.dump(preferencias,f,indent = 4)
 
